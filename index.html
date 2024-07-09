@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+}
+.container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+}
+.child{
+    width: 7.8em;
+    height: 2.3em;
+    border: 2px solid rgb(206, 206, 1);
+    box-shadow: 4px 5px 10px 0px rgba(255, 255, 0, 0.351);
+    background-color: rgba(5, 19, 26, 0.564);
+    display: flex;
+    flex-direction: column;
+    font-size: 3.5em;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: wheat;
+}
+.extra{
+    display: flex;
+}
+.day{
+    margin-right: 0.4em;
+}
+.day , .date{
+    font-size: 0.25em;
+    color: white;
+}
+@media screen and (orientation : portrait) {
+    body{
+        font-size: 0.6em;
+    }
+    .child{
+        border-radius: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="child">
+            <p id="time"></p>
+            <div class="extra">
+            <p class="day">Sunday</p>
+            <span class="date">8/7/2024</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        let child = document.querySelector("#time");
+        let day = document.querySelector(".day");
+        let dateHtml = document.querySelector(".date");
+        let unreal = " AM";
+        let real = " PM";
+        const timeGiver = () =>{
+            const time = new Date();
+            realInterval = () =>{
+                let swap = real ;
+                real = unreal;
+                unreal = swap;
+            }
+            let result =  time.toLocaleTimeString() + real;
+            if(result == "12:00:00"){
+                realInterval();
+            }
+            child.textContent = result;
+        }
+        setInterval(timeGiver , 1000);
+        const dayTeller = (time) => {
+            let dy = time.getDay();
+            let dayFinal = "";
+            switch(dy) {
+                case 0 :
+                dayFinal = "Sunday";
+                break;
+                case 1 :
+                dayFinal = "Monday";
+                break;
+                case 2 :
+                dayFinal = "Tuesday";
+                break;
+                case 3 :
+                dayFinal = "Wednesday";
+                break;
+                case 4 :
+                dayFinal = "Thursday";
+                break;
+                case 5 :
+                dayFinal = "Friday";
+                break;
+                case 6 :
+                dayFinal = "Saturday";
+                break;
+            }
+            const dateTeller = new Date();
+            const realDate = dateTeller.toLocaleDateString();
+            day.textContent = dayFinal;
+            dateHtml.textContent = realDate;
+        }
+        const dayTel = new Date();
+        dayTeller(dayTel);
+        // timeGiver();
+    </script>
+</body>
+</html>
