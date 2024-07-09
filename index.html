@@ -74,20 +74,17 @@ body{
         let child = document.querySelector("#time");
         let day = document.querySelector(".day");
         let dateHtml = document.querySelector(".date");
-        let unreal = " AM";
-        let real = " PM";
+        let real = "";
         const timeGiver = () =>{
             const time = new Date();
-            realInterval = () =>{
-                let swap = real ;
-                real = unreal;
-                unreal = swap;
+            let result =  time.toLocaleTimeString();
+            if(result >= "12:00:00" && result < "23:59:59"){
+                real = " PM" ;
+            }else if(result >= "01:00:00" && result < "11:59:59"){
+                real = " AM";
             }
-            let result =  time.toLocaleTimeString() + real;
-            if(result == "12:00:00"){
-                realInterval();
-            }
-            child.textContent = result;
+            let result1 =  time.toLocaleTimeString() + real;
+            child.textContent = result1;
         }
         setInterval(timeGiver , 1000);
         const dayTeller = (time) => {
